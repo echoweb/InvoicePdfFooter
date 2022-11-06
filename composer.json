@@ -1,0 +1,25 @@
+{
+    "name": "echoweb/module-invoice-pdf-footer",
+    "description": "Echo Web Module: Invoice PDF Footer",
+    "type": "magento2-module",
+    "version": "1.0.1",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "keywords": [
+        "echoweb-cmt-generated"
+    ],
+    "require": {
+        "php": ">=7.2.0",
+        "magento/framework": ">=101.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "EchoWeb\\InvoicePdfFooter\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}
