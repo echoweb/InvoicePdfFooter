@@ -46,6 +46,8 @@ class CreateInvoicePdfFooter implements DataPatchInterface
     }
 
     /**
+     * Create CMS Block to store sales invoice pdf footer text
+     *
      * @return CreateInvoicePdfFooter|void
      * @throws LocalizedException
      */

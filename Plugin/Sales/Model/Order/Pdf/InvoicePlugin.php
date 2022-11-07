@@ -6,7 +6,7 @@ namespace EchoWeb\InvoicePdfFooter\Plugin\Sales\Model\Order\Pdf;
 
 use Magento\Cms\Block\Block;
 use Magento\Framework\View\LayoutInterface;
-use Magento\Sales\Model\Order\Pdf\Invoice as Invoice;
+use Magento\Sales\Model\Order\Pdf\Invoice;
 use Psr\Log\LoggerInterface;
 use Zend_Pdf;
 use Zend_Pdf_Page;
@@ -51,9 +51,9 @@ class InvoicePlugin
     {
         try {
             $lastPage = end($result->pages);
-            $this->addInvoicePdfFooterCmsBlock($subject, $lastPage);
+            $this->insertFooter($subject, $lastPage);
         } catch (\Exception $e) {
-            $this->logger->critical($e);
+            $this->logger->critical($e->getMessage());
         }
 
         return $result;
@@ -66,19 +66,15 @@ class InvoicePlugin
      * @param Zend_Pdf_Page $page
      * @return void
      */
-    private function addInvoicePdfFooterCmsBlock(Invoice $invoice, Zend_Pdf_Page $page): void
+    private function insertFooter(Invoice $invoice, Zend_Pdf_Page $page, $store = null): void
     {
         try {
-            $page->drawText(
-                $this->layout
-                    ->createBlock(Block::class)
-                    ->setBlockId('sales_invoice_pdf_cms_block')->toHtml(),
-                250,
-                $invoice->y - 50,
-                'UTF-8'
-            );
+            $text = $this->layout
+                ->createBlock(Block::class)
+                ->setBlockId('sales_invoice_pdf_cms_block')->toHtml();
+            $page->drawText($text, 20, $invoice->y - 40, 'UTF-8');
         } catch (\Exception $e) {
-            $this->logger->critical($e);
+            $this->logger->critical($e->getMessage());
         }
     }
 }
